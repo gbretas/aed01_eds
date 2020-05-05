@@ -98,6 +98,65 @@ void soma_inversos_impares_tres(int qntd, int somados, double soma, int numero){
     }
     
 }
+
+bool is_par(int num){
+    bool result = false;
+    if(num % 2 == 0){
+        result = true;
+    }
+    return result;
+}
+
+
+int termo_fibonacci(int valor, int primeiro, int soma, int i){
+	if(i < valor){
+		soma = soma + primeiro;
+		primeiro = soma - primeiro;
+		if(soma % 2 == 0){
+			i = i + 1;
+		}
+		soma = termo_fibonacci(valor, primeiro, soma, i);
+	}
+	return soma;
+}
+
+int pares = 0;
+void contar_pares(chars cadeia, int posicao){
+    if(posicao < strlen(cadeia)){
+        if(isdigit(cadeia[posicao])){
+           if(is_par(cadeia[posicao])){
+            ++pares;
+           }
+        }
+        posicao++;
+        contar_pares( cadeia,  posicao);
+    }
+}
+
+void contar_pares_a(chars cadeia, int posicao){
+    contar_pares(cadeia, posicao);
+    IO_printf("%i numeros pares nessa cadeia de caracteres", pares);
+    pares = 0;
+}
+
+int maiusculas = 0;
+void contar_maiusculas(chars cadeia, int posicao){
+    if(posicao < strlen(cadeia)){
+        if(isalpha(cadeia[posicao])){
+           if(isupper(cadeia[posicao])){
+            maiusculas++;
+           }
+        }
+        posicao++;
+        contar_maiusculas( cadeia,  posicao);
+    }
+}
+
+void contar_maiusculas_a(chars cadeia, int posicao){
+    contar_maiusculas(cadeia, posicao);
+    IO_printf("%i letras maiusculas nessa cadeia de caracteres", maiusculas);
+    maiusculas = 0;
+}
 /*
 01.) Incluir em um programa (Exemplo0611) um método para
 ler um valor inteiro do teclado e chamar procedimento recursivo para
@@ -280,11 +339,42 @@ void metodo7(){
     }
 }
 
-void metodo8(){}
+/*
+08.) Incluir em um programa (Exemplo0618) uma função recursiva para
+calcular certo termo par da série de Fibonacci começando em 1.
+Testar essa função para quantidades diferentes.
+DICA: Separar o cálculo do termo e o teste para verificar se é par.
+*/
+void metodo8(){
+    IO_id("Metodo 8");
+    int termo, i =0;
+    termo = IO_readint("Digite um numero para sequência fibonacci: ");
+    IO_printf("O %i termo par e %i", termo, termo_fibonacci(termo, 0 , 1 , i));
 
-void metodo9(){}
+}
+/*
+09.) Incluir em um programa (Exemplo0619) uma função recursiva para
+contar os dígitos com valores pares em uma cadeia de caracteres.
+Testar essa função para cadeias de diferentes tamanhos.
+*/
+void metodo9(){
+    IO_id("Método 9");
+    chars cadeia = 0;
+    cadeia = IO_readstring("Digite uma cadeia de caracteres: ");
+    contar_pares_a(cadeia, 0);
+}
 
-void metodo10(){}
+/*
+10.) Incluir em um programa (Exemplo0620) uma função recursiva para
+calcular a quantidade de maiúsculas em uma cadeia de caracteres.
+Testar essa função para cadeias de diferentes tamanhos.
+*/
+void metodo10(){
+    IO_id("Método 10");
+    chars cadeia = 0;
+    cadeia = IO_readstring("Digite uma cadeia de caracteres: ");
+    contar_maiusculas_a(cadeia, 0);
+}
 
 void extra1(){}
 
@@ -464,10 +554,18 @@ Metodo 8:
 
 --------------------------
 Metodo 9:
-
+2446: 4 numeros pares nessa cadeia de caracteres
+2444444444446: 13 numeros pares nessa cadeia de caracteres
+236: 2 numeros pares nessa cadeia de caracteres
+1135: 0 numeros pares nessa cadeia de caracteres
 --------------------------
 Metodo 10:
-
+AaAa: 2 letras maiusculas nessa cadeia de caracteres
+AaAA: 3 letras maiusculas nessa cadeia de caracteres
+AAAA: 4 letras maiusculas nessa cadeia de caracteres
+gustavo: 0 letras maiusculas nessa cadeia de caracteres
+gust@vo: 0 letras maiusculas nessa cadeia de caracteres
+GuST@vo: 3 letras maiusculas nessa cadeia de caracteres
 --------------------------
 Metodo Extra 1:
 

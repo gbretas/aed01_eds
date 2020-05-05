@@ -1,5 +1,5 @@
 /*
-ED06 - 28/04/2020
+ED07 - 03/05/2020
 Author: 689655 Gustavo Torres Bretas Alves
 */
 #include "io.h"
@@ -66,7 +66,7 @@ void extra2(){}
 
 void select() {
     int atividade;
-    IO_id("ED06 - 28 abr 2020");
+    IO_id("ED07 - 03 mai 2020");
 
     IO_printf("0 - Sair \n");
     IO_printf("1 - Exemplo 1 \n");
