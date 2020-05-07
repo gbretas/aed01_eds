@@ -1,0 +1,6 @@
+GUSTAVO: 0 minusculas
+TESTE: 0 minusculas
+STRING: 0 minusculas
+Caps: 3 minusculas
+CaPs: 2 minusculas
+TeStE: 2 minusculas

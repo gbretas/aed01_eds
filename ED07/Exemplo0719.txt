@@ -1,0 +1,7 @@
+GUSTAVO
+TESTE
+STRING
+Caps
+CaPs
+TeStE
+PARAR
