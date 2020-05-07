@@ -247,12 +247,23 @@ Gravar em outro arquivo ("RESULTADO08.TXT") cada quantidade e seu resultado.
 */
 void metodo8(){
     FILE* arquivo = fopen ( "RESULTADO08.txt", "wt" );
-    int n = 0;
+    int qntd = 0, n = 0;
     int calculados = 0;
-    n = IO_readint("Digite uma quantidade de numeros: ");
-    while (n < calculados){
+    int i, fib1 = 1, fib2 = 1, soma;
 
-    }
+    qntd = IO_readint("Digite uma quantidade de numeros: ");
+    n = qntd;
+    for (i = 1; i <= n; i = i + 1)           
+        {                                        
+        soma = fib1 + fib2;                    
+        fib1 = fib2;                           
+        fib2 = soma;
+        if(fib2 % 2 == 1){
+            fprintf(arquivo, "%i\n", fib2);
+        }else{
+            n++;
+        }                   
+    }      
     fclose(arquivo);
 }
 
@@ -309,15 +320,86 @@ void metodo10(){
     fclose ( arquivo_salvar );
 }
 
-/*
- 
-*/
-void extra1(){}
+bool is_primo(int num){
+    int result = 1;
+    int i = 2;
+    if(num > 0){
+        if(num == 1){
+            result = 0;
+        }else{
+            for (i = 2; i <= 9; i++){
+                if(num % i == 0){
+                    if(num != i){
+                        result = 0;
+                    }
+                }
+            }
+        }
+    }else{
+        result = 0;
+        IO_printf("\nERROR: Digite um numero valido\n");
+    }
+    return result;
+}
+
+bool is_par(int num){
+    int result = 0;
+    if(num % 2 == 0){
+        result = 1;
+    }
+    return result;
+}
 
 /*
- 
+E1.) Incluir em um programa (Exemplo07E1) um método para
+programa ler um valor inteiro do teclado, e
+gravar em arquivo os seus divisores em ordem decrescente.
 */
-void extra2(){}
+void extra1(){
+    int numero;
+    int divisor;
+    int i;
+    numero = IO_readint("Digite um numero inteiro: ");
+    FILE * arquivo = fopen("Exemplo07E1.txt", "wt");
+
+    if(is_primo(numero)){
+        fprintf(arquivo, "%i\n", numero);
+    }else{
+        divisor = numero/2;
+        fprintf(arquivo, "%i\n", numero);
+        for(i = divisor; i > 0; i--){
+            if(numero % i == 0){
+                fprintf(arquivo, "%i\n", i);
+            }
+        }
+    }
+
+    fclose(arquivo);
+}
+
+/*
+E2.) Incluir em um programa (Exemplo07E2) uma função para
+ler palavras de um arquivo, uma por linha, e
+contar quantas começam com a letra 'a' (ou 'A').
+*/
+void extra2(){
+    int comemcando_com_a = 0;
+    int i = 0;
+    FILE* arquivo_salvar = fopen ( "RESULTADO12.txt", "wt" );
+    FILE* arquivo = fopen ( "Exemplo0719.txt", "rt" );
+    chars linha = IO_new_chars ( STR_SIZE );
+    strcpy ( linha, IO_freadln ( arquivo ) );
+    while ( ! feof (arquivo) && strcmp ( "PARAR", linha ) != 0 ){
+        if(linha[0] == 'A' || linha[0] == 'a'){
+            fprintf(arquivo_salvar, "%s: comeca com a ou A\n", linha);
+            comemcando_com_a++;
+        }
+        strcpy ( linha, IO_freadln ( arquivo ) );
+    }
+    fprintf(arquivo, "%i palavras comecando com A ou a", comemcando_com_a);
+    fclose ( arquivo );
+    fclose ( arquivo_salvar );
+}
 
 void select() {
     int atividade;
