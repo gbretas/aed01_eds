@@ -5,6 +5,8 @@
         "functional": "c",
         "iterator": "c",
         "memory": "c",
-        "ratio": "c"
+        "ratio": "c",
+        "iostream": "cpp",
+        "ostream": "cpp"
     }
 }
