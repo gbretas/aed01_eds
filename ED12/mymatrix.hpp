@@ -35,14 +35,20 @@ public: // area aberta
     } // end for
   }   // end constructor
 
+  
   ~Matrix() {
     if (data != NULL) {
       for (int x = 0; x < lines; x = x + 1) {
-        delete (data[x]);
-      } // end for
+        //delete(data[x]);
+        data[x] = NULL;
+        delete(data[x]);
+      }
+      data = NULL;
       delete (data);
-    } // end if
+    }
+    data = NULL;
   }   // end destructor ( )
+  
 
   void set(int line, int column, T value) {
     if (line < 0 || line >= lines || column < 0 || column >= columns) {
@@ -103,6 +109,39 @@ public: // area aberta
     afile.close();
   } // end fprint ( )
 
+  void addRows(int primeira, int segunda, double constante) {
+    if( primeira < 0 || primeira > lines - 1 || segunda < 0 || segunda > lines - 1){
+        cout << "\nERROR: Invalid lines number for this matrix.\n" << endl;
+    }else{
+      int x = primeira;
+      for (int y = 0; y < columns; y = y + 1) {
+        data[x][y] = (data[x][y] + data[segunda][y]) * constante;
+      }
+    }
+  }
+  void subRows(int primeira, int segunda, double constante) {
+    if( primeira < 0 || primeira > lines - 1 || segunda < 0 || segunda > lines - 1){
+        cout << "\nERROR: Invalid lines number for this matrix.\n" << endl;
+    }else{
+      int x = primeira;
+      for (int y = 0; y < columns; y = y + 1) {
+        data[x][y] = (data[x][y] - data[segunda][y]) * constante;
+      }
+    }
+  }
+
+  Matrix<T> transpose(){
+    Matrix<T> transposta (columns, lines);
+    int x, y, aux;
+    for (x = 0; x<lines; x = x+1){
+      for (y = 0; y<columns; y = y+1){
+        transposta.set(y, x, data[x][y]);
+      }
+    }    
+    return transposta;
+  }
+
+
   void scale(int constante) {
     for (int x = 0; x < lines; x = x + 1) {
       for (int y = 0; y < columns; y = y + 1) {
@@ -139,25 +178,6 @@ public: // area aberta
     afile.close();
   } // end fread ( )
 
-  Matrix &operator=(const Matrix<T> other) {
-    if (other.lines == 0 || other.columns == 0) {
-      cout << "\nERROR: Missing data.\n" << endl;
-    } else {
-      this->lines = other.lines;
-      this->columns = other.columns;
-      this->data = new T *[lines];
-      for (int x = 0; x < lines; x = x + 1) {
-        this->data[x] = new T[columns];
-      } // end for
-      for (int x = 0; x < this->lines; x = x + 1) {
-        for (int y = 0; y < this->columns; y = y + 1) {
-          data[x][y] = other.data[x][y];
-        } // end for
-      }   // end for
-    }     // end if
-    return (*this);
-  } // end operator= ( )
-
   bool isZeros() {
     bool result = true;
     int x = 0;
@@ -172,6 +192,40 @@ public: // area aberta
     } // end while
     return (result);
   } // end isZeros ( )
+
+  int searchRows(int procurado) {
+    int result = -1;
+    int x = 0;
+    int y = 0;
+    while (x < lines) {
+      y = 0;
+      while (y < columns) {
+        if(data[x][y] == procurado){
+          result = x;
+        }
+        y = y + 1;
+      } // end for
+      x = x + 1;
+    } // end while
+    return (result);
+  } // end searchRows ( )
+
+  int searchColumns(int procurado) {
+    int result = -1;
+    int x = 0;
+    int y = 0;
+    while (x < lines) {
+      y = 0;
+      while (y < columns) {
+        if(data[x][y] == procurado){
+          result = y;
+        }
+        y = y + 1;
+      } // end for
+      x = x + 1;
+    } // end while
+    return (result);
+  } // end searchRows ( )
 
   bool operator!=(const Matrix<T> other) {
     bool result = false;
@@ -197,6 +251,7 @@ public: // area aberta
 
   bool operator==(const Matrix<T> other) {
     bool result = true;
+    
     int x = 0;
     int y = 0;
     if (other.lines == 0 || lines != other.lines || other.columns == 0 || columns != other.columns) {
@@ -210,9 +265,47 @@ public: // area aberta
         }
       }
     }
-    return (result);
+    
+    return (!result);
   }
 
+    Matrix &operator=(const Matrix<T> other) {
+    if (other.lines == 0 || other.columns == 0) {
+      cout << "\nERROR: Missing data.\n" << endl;
+    } else {
+      this->lines = other.lines;
+      this->columns = other.columns;
+      this->data = new T *[lines];
+      for (int x = 0; x < lines; x = x + 1) {
+        this->data[x] = new T[columns];
+      } // end for
+      for (int x = 0; x < this->lines; x = x + 1) {
+        for (int y = 0; y < this->columns; y = y + 1) {
+          data[x][y] = other.data[x][y];
+        } // end for
+      }   // end for
+    }     // end if
+    return (*this);
+  } // end operator= ( )
+
+
+  Matrix &operator+(const Matrix<T> other) {
+    static Matrix<T> result(1, 1);
+    int x = 0;
+    int y = 0;
+    result = other;
+    if (other.lines == 0 || lines != other.lines || other.columns == 0 ||
+        columns != other.columns) {
+      cout << "\nERROR: Missing data.\n" << endl;
+    }  else {
+      for (int x = 0; x < result.lines; x = x + 1) {
+        for (int y = 0; y < result.columns; y = y + 1) {
+          result.data[x][y] = data[x][y] + result.data[x][y];
+        } // end for
+      }   // end for
+    }    // end if
+    return (result);
+  } // end operator+ ( )
 
   Matrix &operator-(const Matrix<T> other) {
     static Matrix<T> result(1, 1);

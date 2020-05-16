@@ -4,16 +4,8 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    {
-        "name": "(lldb) Anexar",
-        "type": "cppdbg",
-        "request": "attach",
-        "program": "ed12",
-        "processId": "${command:pickProcess}",
-        "MIMode": "lldb"
-    },
         {
-            "name": "clang - Criar e depurar o arquivo ativo",
+            "name": "g++ - Criar e depurar o arquivo ativo",
             "type": "cppdbg",
             "request": "launch",
             "program": "${fileDirname}/${fileBasenameNoExtension}",
@@ -23,7 +15,7 @@
             "environment": [],
             "externalConsole": false,
             "MIMode": "lldb",
-            "preLaunchTask": "clang build active file"
+            "preLaunchTask": "g++ build active file"
         }
     ]
 }

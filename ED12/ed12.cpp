@@ -104,84 +104,154 @@ matrix2 = lerArquivo ( "DADOS2.TXT" );
 teste = (matrix1 == matrix2);
 */
 void method04() {
-  Matrix<int> matriz1(1, 1), matriz2(1,1);
+  Matrix<int> matriz1(0, 0);
+  Matrix<int> matriz2(0, 0);
   matriz1.fread("Metodo01.txt");
-  matriz2.fread("Metodo01.txt");
+  matriz2.fread("Metodo02.txt");
 
-   cout << "Diferentes = " << (matriz1!=matriz2) << endl;
+  cout << "Diferentes = " << (matriz1 == matriz2) << endl;
 }
 
 /**
-
+05.) Incluir em um programa (Exemplo1215) um operador para
+somar duas matrizes.
+Para testar, receber um nome de arquivo como parâmetro e
+aplicar a função sobre o arranjo com os valores lidos;
+Exemplo: matrix1 = lerArquivo ( "DADOS1.TXT" );
+matrix2 = lerArquivo ( "DADOS2.TXT" );
+soma = matrix1 + matrix2;
 */
-void method05() {}
+void method05() {
+  Matrix<int> matriz1(0, 0);
+  Matrix<int> matriz2(0, 0);
+  Matrix<int> soma(0, 0);
+  matriz1.fread("Metodo01.txt");
+  matriz2.fread("Metodo02.txt");
+
+  soma = (matriz1 + matriz2);
+  soma.print();
+}
 
 /**
-
+06.) Incluir em um programa (Exemplo1216) uma função para
+operar duas linhas da matriz, guardando no lugar da primeira,
+a soma da primeira com a segunda multiplicada por uma constante.
+Exemplo: matrix1 = lerArquivo ( "DADOS1.TXT" );
+matrix1.addRows ( 0, 1, (-1) );
 */
-void method06() {}
-
-/**
-07.) Incluir em um programa (Exemplo1117) uma função para
-dizer se está ordenado, ou não, em ordem crescente.
-DICA: Testar se não está desordenado, ou seja,
-se existe algum valor que seja menor que o seguinte.
-Não usar break !
-Exemplo: arranjo = lerArquivo ( "DADOS.TXT" );
-teste = arranjo.crescente ( );
+void method06() {
+  Matrix<int> matriz1(0, 0);
+  matriz1.fread("Metodo01.txt");
+  matriz1.addRows(0, 1, 2);
+  matriz1.print();
+}
+/*
+Normal sem a funcao:
+1       2
+3       4
+constante 1
+4       6
+3       4
+constante 2
+8       12
+3       4
 */
-void method07() {}
 
-/**
-08.) Incluir em um programa (Exemplo1118) uma função para
-dizer se determinado valor está presente em arranjo,
-entre duas posições indicadas.
-Para testar, ler o arquivo ("DADOS.TXT"),
-e armazenar os dados em arranjo;
-ler do teclado um valor inteiro para ser procurado;
-determinar se o valor procurado existe no arranjo.
-Exemplo: arranjo = lerArquivo ( "DADOS.TXT" );
-existe = arranjo.acharValor ( procurado, 5, 10 );
-*/
-void method08() {}
 
-/**
-09.) Incluir em um programa (Exemplo1119) uma função para
-escalar o arranjo, multiplicando cada valor por uma constante.
-Para testar, ler o arquivo ("DADOS.TXT"),
-e armazenar os dados em arranjo;
-ler do teclado um valor inteiro para indicar a constante.
-Exemplo: arranjo = lerArquivo ( "DADOS.TXT" );
-novo = arranjo.escalar( constante );
-*/
-void method09() {}
+
 
 /**
-10.) Incluir em um programa (Exemplo1120) um método para
-colocar valores em arranjo em ordem crescente,
-mediante trocas de posições, até ficar totalmente ordenado.
-Para testar, ler o arquivo ("DADOS.TXT"),
-e armazenar os dados em arranjo.
-Exemplo: arranjo = lerArquivo ( "DADOS.TXT" );
-arranjo.ordenar ( );
+07.) Incluir em um programa (Exemplo1217) uma função para
+operar duas colunas da matriz, guardando no lugar da primeira,
+a diferença da primeira com a segunda multiplicada por uma constante.
+Exemplo: matrix1 = lerArquivo ( "DADOS1.TXT" );
+matrix1.subRows ( 0, 1, (2) );
 */
-void method10() {}
+void method07() {
+  Matrix<int> matriz1(0, 0);
+  matriz1.fread("Metodo01.txt");
+  matriz1.subRows(0, 1, 1);
+  matriz1.print();
+}
+/**
+Normal sem a funcao:
+1       2
+3       4
+constante 1
+-2       -2
+3       4
+constante 2
+-4      -4
+3       4
+*/
 
 /*
-E1.) Incluir em um programa (Exemplo11E1) um operador (!=) para
-dizer se dois arranjos são diferentes, pelo menos em uma posição.
+08.) Incluir em um programa (Exemplo1218) uma função para
+dizer em qual linha da matriz se encontra certo valor, se houver.
+Exemplo: matrix1 = lerArquivo ( "DADOS1.TXT" );
+teste = matrix1.searchRows ( procurado )
+*/
+void method08() {
+  Matrix<int> matriz1(0, 0);
+  matriz1.fread("Metodo01.txt");
+  int teste = -1;
+  int procurado = 0;
+  cout << "Digite um valor para procurar sua linha na matriz: ";cin >> procurado;cout << endl;
+  teste = matriz1.searchRows(procurado);
+  if(teste > -1){
+    cout << "Valor encontrado na linha " << teste + 1 << endl;
+  }else{
+    cout << "Valor nao encontrado" << endl;
+  }
+}
+
+/**
+09.) Incluir em um programa (Exemplo1219) uma função para
+dizer em qual coluna da matriz se encontra certo valor, se houver.
+Exemplo: matrix1 = lerArquivo ( "DADOS1.TXT" );
+teste = matrix1.searchColumns ( procurado );
+*/
+void method09() {
+  Matrix<int> matriz1(0, 0);
+  matriz1.fread("Metodo01.txt");
+  int teste = -1;
+  int procurado = 0;
+  cout << "Digite um valor para procurar sua coluna na matriz: ";cin >> procurado;cout << endl;
+  teste = matriz1.searchColumns(procurado);
+  if(teste > -1){
+    cout << "Valor encontrado na coluna " << teste + 1 << endl;
+  }else{
+    cout << "Valor nao encontrado" << endl;
+  }
+}
+
+/**
+10.) Incluir em um programa (Exemplo1220) uma função para
+transpor os dados em uma matriz.
+Exemplo: matrix1 = lerArquivo ( "DADOS1.TXT" );
+matrix1.transpose ( );
+*/
+void method10() {
+  Matrix<int> matriz1(0, 0);
+  Matrix<int> transposta(0, 0);
+  matriz1.fread("Metodo01.txt");
+  transposta = matriz1.transpose();
+  transposta.print();
+}
+
+/*
+
 */
 void method11() {}
 
 /*
-E2.) Incluir em um programa (Exemplo11E2) um operador (-) para
-calcular as diferenças entre dois arranjos, posição por posição
 */
 void method12() {}
 
 // ----------------------------------------------- acao principal
 int main(int argc, char **argv) {
   int x = 0;
+  
   do {
     cout << "ED 12 - 14/05/2020\n " << endl;
     cout << "ED 12 - 689655 Gustavo Torres Bretas Alves\n " << endl;
